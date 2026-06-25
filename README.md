@@ -39,6 +39,7 @@ The model is trained on labeled SMS/email dataset and then deployed using **Stre
 - Streamlit
 - NLP (Natural Language Processing)
 
+<<<<<<< HEAD
 ---
 
 ## 📂 Project Structure
@@ -51,3 +52,10 @@ The model is trained on labeled SMS/email dataset and then deployed using **Stre
 ```bash
 git clone https://github.com/your-username/spam-email-detector.git
 cd spam-email-detector
+=======
+## Accuracy
+97.84%
+
+## Run
+streamlit run app.py
+>>>>>>> be92141da31cd95308c3acd31d297f57f2182383
