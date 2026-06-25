@@ -4,6 +4,7 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
+model = MultinomialNB(alpha=0.5, fit_prior=True, class_prior=None)
 from sklearn.metrics import accuracy_score
 
 # Load dataset
@@ -23,7 +24,8 @@ y = df["label"]
 vectorizer = TfidfVectorizer(
     lowercase=True,
     stop_words="english",
-    max_features=3000
+    max_features=5000,
+    ngram_range=(1,2)
 )
 
 X_vec = vectorizer.fit_transform(X)
@@ -34,7 +36,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # Model
-model = MultinomialNB()
+model = MultinomialNB(alpha=0.5, fit_prior=True, class_prior=None)
 model.fit(X_train, y_train)
 
 # Prediction
@@ -46,5 +48,19 @@ print("Model Accuracy:", accuracy_score(y_test, y_pred))
 # Save model
 joblib.dump(model, "spam_model.pkl")
 joblib.dump(vectorizer, "vectorizer.pkl")
+
+
+import re
+
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'http\S+', ' URL ', text)
+    text = re.sub(r'\d+', ' NUMBER ', text)
+    return text
+
+df['message'] = df['text'].apply(clean_text)
+df['has_url'] = df['message'].apply(lambda x: 1 if "http" in x else 0)
+x = vectorizer.fit_transform(df['message'])
+df['label'].value_counts()
 
 print("Model Saved Successfully!")

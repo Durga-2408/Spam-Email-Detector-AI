@@ -44,3 +44,16 @@ if st.button("Check Email"):
 # Footer
 st.markdown("---")
 st.caption("Built with Streamlit + Machine Learning")
+#Confidence score
+vec = vectorizer.transform([input_text])
+prob = model.predict_proba(vec)[0]
+st.write("Spam Probability:", f"{prob[1]*100:.2f}%")
+st.write("Normal Probability:", f"{prob[0]*100:.2f}%")
+#why spam
+if "http" in input_text:
+    st.warning("Reason: Contains suspicious link")
+if "$" in input_text or "free" in input_text:
+    st.warning("Reason: Scam keywords detected")
+#input validation
+if input_text.stip()== "":
+    st.warning("Please enter email text")
