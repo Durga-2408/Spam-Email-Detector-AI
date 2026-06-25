@@ -10,7 +10,7 @@ A Machine Learning project that detects whether an email is Spam or Normal.
 - Naive Bayes
 
 ## Accuracy
-97.64%
+97.84%
 
 ## Run
 streamlit run app.py
